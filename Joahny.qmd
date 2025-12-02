@@ -8,9 +8,10 @@ format: html
 ```{r}
 library(here)
 library(readr)
+library(vroom)
 here::i_am("grades-lab.Rproj")
 
-courses <- read_csv(here("Data", "courses.csv"))
+courses <- vroom(here("Data", "courses.csv"))
 
 ```
 
