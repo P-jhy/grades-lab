@@ -121,3 +121,17 @@ oldest <- students |>
 oldest |> kable()
 ```
 
+#Question 10 
+
+```{r}
+
+grade_count <- grades |>
+  filter(!is.na(grade)) |>
+  nrow()
+
+```
+
+The data set contains `r grade_count` grades.
+
+
+
