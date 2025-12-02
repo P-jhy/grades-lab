@@ -11,6 +11,11 @@ https://github.com/P-jhy/grades-lab.git
 library(here)
 library(readr)
 library(vroom)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(knitr)
+
 here::i_am("grades-lab.Rproj")
 
 courses <- vroom(here("Data", "courses.csv"))
@@ -306,6 +311,7 @@ ggplot(philo_grades, aes(x = group, y = n_grades)) +
 
 
 #Question 19 
+
 ```{r}
 student_course_avg <-
   grades |>
@@ -398,3 +404,35 @@ final_grades |>
 
 ```
 
+#Question 24
+
+```{r}
+final_grades |>
+  summarise(
+    mean   = mean(final_grade, na.rm = TRUE),
+    median = median(final_grade, na.rm = TRUE),
+    min    = min(final_grade, na.rm = TRUE),
+    max    = max(final_grade, na.rm = TRUE),
+    .by = group
+  ) |>
+  arrange(-mean)
+
+```
+
+#Question 25
+
+```{r}
+final_grades |>
+  summarise(
+    mean   = mean(final_grade, na.rm = TRUE),
+    median = median(final_grade, na.rm = TRUE),
+    min    = min(final_grade, na.rm = TRUE),
+    max    = max(final_grade, na.rm = TRUE),
+    .by = c(group, sex)
+  ) |>
+  arrange(group)
+
+```
+this allows us to see if there's any big discrepencies between sex in each group from what we can see this isnt the case too much.With no huge differences between groups and genders. 
+
+#
