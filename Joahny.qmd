@@ -307,60 +307,50 @@ ggplot(philo_grades, aes(x = group, y = n_grades)) +
 
 #Question 19 
 ```{r}
-library(dplyr)
-library(tidyr)
-library(knitr)
-
-student_course_avg <- grades |>
+student_course_avg <-
+  grades |>
   inner_join(courses, by = "course_id") |>
   inner_join(students, by = "id") |>
-  group_by(id, group, course) |>
-  summarise(
-    avg_grade = mean(grade, na.rm = TRUE),
-    .groups = "drop"
-  )
+  summarise(avg_grade = mean(grade, na.rm = TRUE),
+            .by = c(id, group, course))
 
-student_course_wide <- student_course_avg |>
-  pivot_wider(
-    names_from  = course,
-    values_from = avg_grade
-  )
+student_course_wide <-
+  student_course_avg |>
+  pivot_wider(names_from = course, values_from = avg_grade)
+
+student_course_wide |>
+  select(id,
+         group,
+         `Diplomacy and International Relations`,
+         `Engineering and Technology of the Roman Empire`) |>
+  slice_head(n = 5) |>
+  knitr::kable()
+
+
+```
+#Question 20
+```{r}
 
 student_course_wide |>
   select(
-    id,
-    group,
-    `Diplomacy and International Relations`,
-    `Engineering and Technology of the Roman Empire`
-  ) |>
-  slice_head(n = 5) |>
-  kable()
-
-```
-
-
-
-```{r}
-library(dplyr)
-library(ggplot2)
-
-
-q20_df <- student_course_wide |>
-  select(
-    id,
     med   = `Medicine and Healthcare`,
     roman = `Roman History and Civilization`
   ) |>
-  filter(!is.na(med), !is.na(roman))
-
-ggplot(q20_df, aes(x = med, y = roman)) +
+  ggplot(aes(x = med, y = roman)) +
   geom_point() +
-  geom_smooth(method = "lm") +
-  labs(
-    x = "Average grade in Medicine and Healthcare",
-    y = "Average grade in Roman History and Civilization",
-    title = "Average grades: Roman History vs. Medicine"
-  )
+  geom_smooth(method = "lm")
+
+
+```
+
+#Question 21
+```{r}
+student_course_wide |>
+  select(group,
+         diplo = `Diplomacy and International Relations`,
+         galactic = `Galactic Warfare and Military Tactics`) |>
+  summarise(correlation = cor(diplo, galactic, use = "complete.obs"),
+            .by = group)
 
 
 ```
