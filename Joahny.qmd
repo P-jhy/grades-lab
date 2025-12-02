@@ -134,4 +134,55 @@ grade_count <- grades |>
 The data set contains `r grade_count` grades.
 
 
+#Question 11
+
+```{r}
+
+
+roman_avg <- grades |>
+  inner_join(courses, by = "course_id") |>
+  filter(course == "Roman Law and Jurisprudence") |>
+  inner_join(students, by = "id") |>
+  summarise(
+    avg_grade = mean(grade, na.rm = TRUE),
+    .by = group
+  )
+```
+
+```{r}
+
+ggplot(roman_avg, aes(x = group, y = avg_grade)) +
+  geom_col()
+
+```
+
+#Question 12
+```{r}
+
+grades_sem <- grades |>
+  inner_join(courses, by = "course_id") |>
+  filter(!is.na(grade))
+
+ggplot(grades_sem, aes(x = grade)) +
+  geom_density(bw = "sj") +
+  geom_rug(alpha = 0.1) +
+  facet_wrap(vars(semester))
+
+```
+
+```{r}
+
+library(dplyr)
+
+grades_sem_count <- grades |>
+  inner_join(courses, by = "course_id") |>
+  filter(!is.na(grade)) |>
+  summarise(
+    n = n(),
+    .by = semester
+  )
+
+grades_sem_count
+
+```
 
