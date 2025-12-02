@@ -339,4 +339,30 @@ student_course_wide |>
 ```
 
 
-#
+
+```{r}
+library(dplyr)
+library(ggplot2)
+
+
+q20_df <- student_course_wide |>
+  select(
+    id,
+    med   = `Medicine and Healthcare`,
+    roman = `Roman History and Civilization`
+  ) |>
+  filter(!is.na(med), !is.na(roman))
+
+ggplot(q20_df, aes(x = med, y = roman)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(
+    x = "Average grade in Medicine and Healthcare",
+    y = "Average grade in Roman History and Civilization",
+    title = "Average grades: Roman History vs. Medicine"
+  )
+
+
+```
+
+
