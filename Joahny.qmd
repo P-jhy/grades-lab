@@ -186,3 +186,39 @@ grades_sem_count
 
 ```
 
+#Question 13
+```{r}
+grades_per_student <- grades |>
+  filter(!is.na(grade)) |>
+  summarise(
+    n_grades = n(),
+    .by = id
+  ) |>
+  inner_join(students, by = "id") |>
+  select(id, sex, group, n_grades)
+
+grades_per_student |>
+  slice_head(n = 5) |>
+  knitr::kable()
+
+stats <- grades_per_student |>
+  summarise(
+    min = min(n_grades),
+    max = max(n_grades),
+    mean = mean(n_grades),
+    median = median(n_grades)
+  )
+
+```
+
+The number of grades per student ranges from `r stats$min` to `r stats$max`.
+
+| statistic | value |
+|----------|-------|
+| minimum  | `r stats$min` |
+| maximum  | `r stats$max` |
+| average  | `r round(stats$mean, 2)` |
+| median   | `r stats$median` |
+
+
+
