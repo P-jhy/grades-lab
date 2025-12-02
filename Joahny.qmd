@@ -303,3 +303,40 @@ ggplot(philo_grades, aes(x = group, y = n_grades)) +
   geom_boxplot() +
   facet_wrap(vars(sex))
 ```
+
+
+#Question 19 
+```{r}
+library(dplyr)
+library(tidyr)
+library(knitr)
+
+student_course_avg <- grades |>
+  inner_join(courses, by = "course_id") |>
+  inner_join(students, by = "id") |>
+  group_by(id, group, course) |>
+  summarise(
+    avg_grade = mean(grade, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+student_course_wide <- student_course_avg |>
+  pivot_wider(
+    names_from  = course,
+    values_from = avg_grade
+  )
+
+student_course_wide |>
+  select(
+    id,
+    group,
+    `Diplomacy and International Relations`,
+    `Engineering and Technology of the Roman Empire`
+  ) |>
+  slice_head(n = 5) |>
+  kable()
+
+```
+
+
+#
