@@ -192,7 +192,7 @@ grades_sem_count <- grades |>
 grades_sem_count
 
 ```
-
+The 2 functions can seem quite different this is partly due to the number of observations but grades in semester 2 seem way more concentrated that in semester 1.
 #Question 13
 ```{r}
 grades_per_student <- grades |>
@@ -243,7 +243,7 @@ ggplot(grades_per_student, aes(x = n_grades, fill = sex)) +
   geom_histogram(position = "identity", alpha = 0.5, bins = 20)
 
 ```
-I feel like having two seperate graphs is cleared but just in case i put an other one with both M and F on the same graphic.
+I feel like having two seperate graphs is cleared but just in case i put an other one with both M and F on the same graphic. But the grades don't seem extremely different they are usually in the same ballpark with some minor variations.
 
 
 #Question 15
@@ -300,7 +300,7 @@ ggplot(philo_dist, aes(x = n_grades, y = n_students)) +
 ggplot(philo_grades, aes(x = group, y = n_grades)) +
   geom_violin()
 ```
-
+The Number of groups seems dependant on the group but i'm not really quite sure how to interpret this bc i don't feel theres a link.
 #Question 18
 `
 ```{r}
@@ -348,7 +348,7 @@ student_course_wide |>
 
 
 ```
-
+Positive correllation here most students who do well in one of these subjects also do quite well in the other they're probably require complimentary skills.
 #Question 21
 ```{r}
 student_course_wide |>
@@ -360,7 +360,7 @@ student_course_wide |>
 
 
 ```
-
+Every group here has a negative correlation between these 2 subjects. meaning performing well in one usually leads you to not performing as well in the other. 
 #Question 22
 ```{r}
 corr_group <-
@@ -496,7 +496,7 @@ student_course_avg |>
   arrange(-n)
 
 ```
-THis shows that most people who fail because of an average of less than 5 have this average in only two classes both link to ROMe 
+THis shows that most people who fail because of an average of less than 5 have this average in only two classes both link to ROMan society. 
 ```{r}
 student_course_avg |>
   summarise(min_avg = min(avg_grade, na.rm = TRUE), .by = course) |>
@@ -530,6 +530,6 @@ success_age |>
   geom_line()
 
 ```
-
+Here we can see that the older the student the more chances he has of passing and that weirdly being born in 1998 leads to a majority of students failing.
 
 
