@@ -109,4 +109,15 @@ median_age <- students |>
 
 median_age |> kable()
 ```
+#Question 9 
+```{r}
+library(dplyr)
+library(knitr)
+oldest <- students |>
+  slice_max(age, n = 1, by = group) |>
+  select(id, sex, age, group) |>
+  arrange(desc(age))
+
+oldest |> kable()
+```
 
