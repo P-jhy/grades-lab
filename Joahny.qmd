@@ -3,6 +3,8 @@ title: "JOAHNY"
 author: "Paul Joahny"
 format: html
 ---
+#Github link repository 
+https://github.com/P-jhy/grades-lab.git
 
 #Question 1
 ```{r}
