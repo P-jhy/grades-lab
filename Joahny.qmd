@@ -222,5 +222,20 @@ The number of grades per student ranges from `r stats$min` to `r stats$max`.
 | average  | `r round(stats$mean, 2)` |
 | median   | `r stats$median` |
 
+#Question 14
+```{r}
 
+ggplot(grades_per_student, aes(x = n_grades)) +
+  geom_histogram(bins = 20) +
+  facet_wrap(vars(sex))
+
+```
+
+
+```{r}
+
+ggplot(grades_per_student, aes(x = n_grades, fill = sex)) +
+  geom_histogram(position = "identity", alpha = 0.5, bins = 20)
+
+```
 
