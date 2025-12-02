@@ -496,6 +496,7 @@ student_course_avg |>
   arrange(-n)
 
 ```
+THis shows that most people who fail because of an average of less than 5 have this average in only two classes both link to ROMe 
 ```{r}
 student_course_avg |>
   summarise(min_avg = min(avg_grade, na.rm = TRUE), .by = course) |>
@@ -503,6 +504,32 @@ student_course_avg |>
 
 ```
 
+#Question 30 
+
+```{r}
+library(lubridate)
+
+
+students_age <-
+  students |>
+  mutate(age = year(birth_date)) |>   
+  select(id, age)
+
+
+success_age <-
+  pass_year |>
+  inner_join(students_age, by = "id") |>
+  summarise(
+    success_rate = mean(pass),
+    .by = age
+  )
+
+success_age |>
+  ggplot(aes(x = age, y = success_rate)) +
+  geom_point() +
+  geom_line()
+
+```
 
 
 
