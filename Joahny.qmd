@@ -252,7 +252,7 @@ philo_grades <- grades |>
     .by = id
   ) |>
   inner_join(students, by = "id") |>
-  select(id, group, n_grades)
+  select(id, group, sex, n_grades)
 
 philo_grades |>
   slice_head(n = 5) |>
@@ -297,3 +297,9 @@ ggplot(philo_grades, aes(x = group, y = n_grades)) +
 ```
 
 #Question 18
+`
+```{r}
+ggplot(philo_grades, aes(x = group, y = n_grades)) +
+  geom_boxplot() +
+  facet_wrap(vars(sex))
+```
