@@ -355,4 +355,31 @@ student_course_wide |>
 
 ```
 
+#Question 22
+```{r}
+corr_group <-
+  student_course_wide |>
+  summarise(
+    correlation = cor(`Diplomacy and International Relations`,
+                      `Galactic Warfare and Military Tactics`,
+                      use = "complete.obs"),
+    .by = group
+  )
 
+best_group <-
+  corr_group |>
+  mutate(abs_corr = abs(correlation)) |>
+  arrange(-abs_corr) |>
+  slice(1) |>
+  pull(group)
+
+student_course_wide |>
+  filter(group == best_group) |>
+  ggplot(aes(x = `Galactic Warfare and Military Tactics`,
+             y = `Diplomacy and International Relations`)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = best_group)
+
+```
+Here we can group 12 is the group with the highest correlation ( in absolute value) and we're able to see a clear negative tendency between having a good grade in Diplomacy and international relations and galactic warfare and military tactics. Which we can imagine in the Imperial academy require very different skills.
