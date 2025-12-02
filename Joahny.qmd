@@ -436,9 +436,9 @@ final_grades |>
 this allows us to see if there's any big discrepencies between sex in each group from what we can see this isnt the case too much.With no huge differences between groups and genders. 
 
 #26
-
+(Post modification i create this pass_detail to verify results later on question 29)
 ```{r}
-pass_year <-
+pass_detail <-
   student_course_avg |>
   inner_join(courses |> select(course, semester), by = "course") |>
   summarise(
@@ -450,19 +450,28 @@ pass_year <-
   ) |>
   mutate(
     pass = (min_course >= 5 & sem1 >= 10 & sem2 >= 10)
-  ) |>
+  )
+
+pass_year <-
+  pass_detail |>
   select(id, group, final_grade, pass)
 
 pass_year |> slice_head(n = 5)
+
 
 ```
 
 #Question 27
 ```{r}
 
-pass_year |>
+pass_detail |>
   filter(!pass, final_grade >= 10) |>
-  summarise(n = n())
+  summarise(
+    n_total         = n(),
+    n_course_below5 = sum(min_course < 5),
+    n_only_semester = sum(min_course >= 5)
+  )
+
 
 ```
 
@@ -479,3 +488,21 @@ pass_year |>
   geom_col()
 ```
 #Question 29 
+
+```{r}
+student_course_avg |>
+  filter(avg_grade < 5) |>
+  summarise(n = n(), .by = course) |>
+  arrange(-n)
+
+```
+```{r}
+student_course_avg |>
+  summarise(min_avg = min(avg_grade, na.rm = TRUE), .by = course) |>
+  arrange(min_avg)
+
+```
+
+
+
+
