@@ -261,7 +261,7 @@ philo_grades |>
 
 ```
 
-Other table to show that 10 is quite common 
+Other table to show that 10 is quite common ( but thats pretty much question 16 also)
 ```{r}
 philo_grades |>
   summarise(
@@ -274,3 +274,26 @@ philo_grades |>
 
 
 #Question 16 
+
+
+```{r}
+
+philo_dist <- philo_grades |>
+  summarise(
+    n_students = n(),
+    .by = n_grades
+  )
+
+ggplot(philo_dist, aes(x = n_grades, y = n_students)) +
+  geom_col()
+
+```
+
+#Question 17 
+
+```{r}
+ggplot(philo_grades, aes(x = group, y = n_grades)) +
+  geom_violin()
+```
+
+#Question 18
