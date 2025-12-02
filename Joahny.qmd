@@ -49,4 +49,21 @@ students <- vroom(
 spec(students)
 
 ```
+#Question 4
+```{r}
+
+
+grades <- read_delim(
+  here("Data", "grades.csv"),
+  delim = "|",
+  na = "$",
+  col_types = cols(
+    id = col_integer(),
+    course_id = col_integer(),
+    grade = col_double()
+  )
+)
+
+
+```
 
