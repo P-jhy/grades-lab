@@ -82,3 +82,31 @@ ggplot(students, aes(x = group, fill = sex)) +
   geom_bar(position = "fill")
 ```
 
+#Question 7
+First calculate age 
+```{r}
+library(lubridate)
+library(dplyr)
+
+students <- students |>
+  mutate(age = time_length(today() - birth_date, unit = "year"))
+```
+```{r}
+ggplot(students, aes(x = age)) +
+  geom_density(bw = "sj") +
+  geom_rug(alpha = 0.1)
+```
+
+#Question 8 
+
+```{r}
+
+median_age <- students |>
+  summarise(
+    median_age = round(median(age)),
+    .by = group
+  )
+
+median_age |> kable()
+```
+
