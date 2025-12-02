@@ -78,6 +78,7 @@ ggplot(students, aes(x = group)) +
 ```
 #Question 6
 ```{r}
-
+ggplot(students, aes(x = group, fill = sex)) +
+  geom_bar(position = "fill")
 ```
 
