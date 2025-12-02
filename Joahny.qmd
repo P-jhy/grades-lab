@@ -4,7 +4,7 @@ author: "Paul Joahny"
 format: html
 ---
 
-
+#Question 1
 ```{r}
 library(here)
 library(readr)
@@ -12,6 +12,25 @@ library(vroom)
 here::i_am("grades-lab.Rproj")
 
 courses <- vroom(here("Data", "courses.csv"))
+
+```
+
+#Question 2
+
+```{r}
+
+library(dplyr)
+library(knitr)
+
+courses |>
+  arrange(course) |>
+  rename(
+    "course name" = course,
+    "identifier" = course_id,
+    "semester" = semester,
+    "number of exams" = nb_grades
+  ) |>
+  kable()
 
 ```
 
