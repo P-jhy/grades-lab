@@ -312,7 +312,7 @@ student_course_avg <-
   inner_join(courses, by = "course_id") |>
   inner_join(students, by = "id") |>
   summarise(avg_grade = mean(grade, na.rm = TRUE),
-            .by = c(id, group, course))
+            .by = c(id, group, sex, course))
 
 student_course_wide <-
   student_course_avg |>
@@ -383,3 +383,18 @@ student_course_wide |>
 
 ```
 Here we can group 12 is the group with the highest correlation ( in absolute value) and we're able to see a clear negative tendency between having a good grade in Diplomacy and international relations and galactic warfare and military tactics. Which we can imagine in the Imperial academy require very different skills.
+
+#Question 23
+
+```{r}
+final_grades <-
+  student_course_wide |>
+  mutate(final_grade = rowMeans(across(-c(id, group, sex)), na.rm = TRUE)) |>
+  select(id, group, sex, final_grade) |>
+  arrange(-final_grade)
+
+final_grades |>
+  slice_head(n = 5)
+
+```
+
