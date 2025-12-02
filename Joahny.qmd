@@ -435,4 +435,35 @@ final_grades |>
 ```
 this allows us to see if there's any big discrepencies between sex in each group from what we can see this isnt the case too much.With no huge differences between groups and genders. 
 
+#26
+
+```{r}
+pass_year <-
+  student_course_avg |>
+  inner_join(courses |> select(course, semester), by = "course") |>
+  summarise(
+    final_grade = mean(avg_grade, na.rm = TRUE),
+    min_course  = min(avg_grade, na.rm = TRUE),
+    sem1        = mean(avg_grade[semester == 1], na.rm = TRUE),
+    sem2        = mean(avg_grade[semester == 2], na.rm = TRUE),
+    .by = c(id, group)
+  ) |>
+  mutate(
+    pass = (min_course >= 5 & sem1 >= 10 & sem2 >= 10)
+  ) |>
+  select(id, group, final_grade, pass)
+
+pass_year |> slice_head(n = 5)
+
+```
+
+#Question 27
+```{r}
+
+pass_year |>
+  filter(!pass, final_grade >= 10) |>
+  summarise(n = n())
+
+```
+
 #
