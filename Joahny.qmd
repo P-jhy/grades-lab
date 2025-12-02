@@ -238,4 +238,39 @@ ggplot(grades_per_student, aes(x = n_grades, fill = sex)) +
   geom_histogram(position = "identity", alpha = 0.5, bins = 20)
 
 ```
+I feel like having two seperate graphs is cleared but just in case i put an other one with both M and F on the same graphic.
 
+
+#Question 15
+```{r}
+
+philo_grades <- grades |>
+  inner_join(courses, by = "course_id") |>
+  filter(course == "Philosophy and Logic") |>
+  summarise(
+    n_grades = n(),
+    .by = id
+  ) |>
+  inner_join(students, by = "id") |>
+  select(id, group, n_grades)
+
+philo_grades |>
+  slice_head(n = 5) |>
+  kable()
+
+
+```
+
+Other table to show that 10 is quite common 
+```{r}
+philo_grades |>
+  summarise(
+    min = min(n_grades),
+    max = max(n_grades),
+    mean = mean(n_grades),
+    median = median(n_grades)
+  )
+```
+
+
+#Question 16 
