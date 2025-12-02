@@ -4,3 +4,13 @@ author: "Paul Joahny"
 format: html
 ---
 
+
+```{r}
+library(here)
+library(readr)
+here::i_am("grades-lab.Rproj")
+
+courses <- read_csv(here("Data", "courses.csv"))
+
+```
+
